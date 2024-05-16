@@ -1,17 +1,35 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react"
-import BasicPie from "./piechart"
+import * as React from 'react';
+import { PieChart } from '@mui/x-charts/PieChart';
 
-
-const App = () => {
+const App = (props) => {
   const [amount,setAmount] = useState()
   const [interest, setInterest] = useState()
   const [loan,setLoan] = useState()
-
-  const calculateInterestPayable = (()=>{
-   
-      return amount * Math.pow(1 + interest / 100, loan)/200
-  })
   
+  const calculateInterestPayable = (()=>{
+    const monthlyInterestRate = interest / 12 / 100;
+    const numberOfPayments = loan * 12;
+
+    const totalRepayment = (amount * monthlyInterestRate * numberOfPayments) /
+      (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
+    const totalInterestPayable = totalRepayment - amount;
+
+    const yearlyInterest =Math.round( totalInterestPayable / loan);
+
+   return parseInt(yearlyInterest)
+   
+     
+  })
+  const calculateEMI = () => {
+    const monthlyInterestRate = interest / 1200
+    const numberOfPayments = loan * 12
+    const emi =  (amount * monthlyInterestRate * Math.pow(1 + (interest / 12 / 100), numberOfPayments)) /
+      (Math.pow(1 +monthlyInterestRate, numberOfPayments) - 1);
+      const calculatedEmi =Math.round(emi)
+      return parseInt(calculatedEmi)
+  };
   return (
   <>
   <div className="wrapper bg-green-400 h-screen w-screen absolute">
@@ -51,15 +69,28 @@ const App = () => {
       </div>
       
       <div className="piechart mt-2">
-        <BasicPie/>
+
+      <PieChart
+      series={[
+        {
+          data: [
+            { id: 0, value: amount, label: 'Principal ' },
+            { id: 1, value: calculateInterestPayable(), label: 'Interest ' },
+            
+          ],
+        },
+      ]}
+      width={500}
+      height={300}
+    />
       </div>
     </div>
     <div className="flex justify-center items-center font-mono">
     <div className="summary bg-[#f2f2f2] w-[28rem]  block p-5 rounded-lg">
-      <h1 className="text-2xl text-blue-600 font-bold">Monthly EMI: <span className="text-xl text-green-600">RS.2000000</span></h1> <br />
-      <h1 className="text-md ml-10">Total Principal: <span className="text-xl text-blue-600">{amount}</span></h1> <br />
-      <h1  className="text-md ml-10" > Interest Payable: <span  className="text-xl text-blue-600">{calculateInterestPayable()}</span></h1> <br />
-      <h1 className="text-md">Total Amount Payable: <span className="text-xl text-blue-600">RS.2000000</span></h1>
+      <h1 className="text-2xl text-blue-600 font-bold">Monthly EMI: <span className="text-xl text-green-600">RS.{calculateEMI()}</span></h1> <br />
+      <h1 className="text-md ml-10">Total Principal: <span className="text-xl text-blue-600">RS.{amount}</span></h1> <br />
+      <h1  className="text-md ml-10" > Interest Payable: <span  className="text-xl text-blue-600">RS.{calculateInterestPayable()}</span></h1> <br />
+      <h1 className="text-md">Total Amount Payable: <span className="text-xl text-blue-600">RS.{parseInt(amount) + calculateInterestPayable()}</span></h1>
 
 
 
