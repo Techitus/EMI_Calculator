@@ -39,7 +39,7 @@ const App = (props) => {
       <div className="rangeSlide  w-96 ml-4 p-4 flex ">
         <div className="">
         <label htmlFor="loan-amount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Loan Amount</label>
-<input id="loan-amount" defaultValue={0} min={0.0} max={10000000.0} type="range" value={amount} onChange={(e)=>setAmount(e.target.value)}className="w-full h-2 mb-6 rounded-lg accent-green-600  cursor-pointer "/>
+<input id="loan-amount" defaultValue={100000} min={0.0} max={10000000.0} type="range" value={amount} onChange={(e)=>setAmount(e.target.value)}className="w-full h-2 mb-6 rounded-lg accent-green-600  cursor-pointer "/>
         </div>
       
 <div className="">
@@ -49,7 +49,7 @@ const App = (props) => {
       <div className="rangeSlide  w-96 ml-4 p-4 flex ">
         <div className="">
         <label htmlFor="interest-rate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Interest Rate</label>
-        <input id="interest-rate" defaultValue={0} min={1.0} max={20.0} value={interest} onChange={(e)=>setInterest(e.target.value)} type="range"  className="w-full h-2 mb-6 rounded-lg accent-green-600  cursor-pointer "/>
+        <input id="interest-rate" defaultValue={9} min={1.0} max={20.0} value={interest} onChange={(e)=>setInterest(e.target.value)} type="range"  className="w-full h-2 mb-6 rounded-lg accent-green-600  cursor-pointer "/>
         </div>
       
 <div className="">
@@ -59,7 +59,7 @@ const App = (props) => {
       <div className="rangeSlide  w-96 ml-4 p-4 flex ">
         <div className="">
         <label htmlFor="loan-term" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Loan Term</label>
-        <input id="loan-term" defaultValue={0} min={1} max={20}  type="range" value={loan} onChange={(e)=>setLoan(e.target.value)} className="w-full h-2 mb-6 rounded-lg accent-green-600  cursor-pointer "/>
+        <input id="loan-term" defaultValue={2} min={1} max={20}  type="range" value={loan} onChange={(e)=>setLoan(e.target.value)} className="w-full h-2 mb-6 rounded-lg accent-green-600  cursor-pointer "/>
         </div>
       
 <div className="">
